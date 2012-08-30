@@ -102,7 +102,10 @@ if not IS_PYTHON_3K: #For Python 3.0, the PYTHONIOENCODING should already treat 
     #-------------------------------------------------------------------------------------------------------------------
     #and finally, set the encoding
     try:
-        if encoding:
+        import os
+        skip_encoding = os.environ.get('PYDEV_SKIP_CONSOLE_ENCODING')
+
+        if not skip_encoding and encoding:
             if DEBUG:
                 sys.stdout.write('Setting default encoding: %s\n' % (encoding,))
             sys.setdefaultencoding(encoding) #@UndefinedVariable (it's deleted after the site.py is executed -- so, it's undefined for code-analysis)
